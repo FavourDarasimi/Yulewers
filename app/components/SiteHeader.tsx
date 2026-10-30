@@ -14,8 +14,8 @@ export default function SiteHeader() {
     <header
       className={`fixed inset-x-0 top-0 z-50 border-b transition-colors motion-reduce:transition-none ${
         solid
-          ? "border-line bg-ivory-raised/95 text-walnut backdrop-blur-sm"
-          : "border-transparent text-ivory"
+          ? "border-line bg-ivory/95 text-walnut backdrop-blur-sm"
+          : "border-transparent text-walnut"
       }`}
     >
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-5 md:h-20 lg:px-8">

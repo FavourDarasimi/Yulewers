@@ -5,7 +5,9 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme inline {
-  --color-ivory: #f6efe3;
+  /* The page is pure white; ivory-raised is the warm tint cards sit on, so it
+     must stay off-white or those cards merge into the page. */
+  --color-ivory: #ffffff;
   --color-ivory-raised: #fcf7ee;
   --color-walnut: #4a3122;
   --color-walnut-soft: #7a5a42;
@@ -13,9 +15,9 @@
   --color-ember-ink: #92400e;
   --color-ember-deep: #7c2d12;
   --color-evening: #2a1b12;
-  /* gold is decorative on ivory (2.24:1) — accent text uses ember-ink */
+  /* gold is decorative on white (2.56:1) — accent text uses ember-ink */
   --color-gold: #c89b3c;
-  /* line is decorative only (1.25:1 on ivory); control borders use line-strong */
+  /* line is decorative only (1.43:1 on white); control borders use line-strong */
   --color-line: #e4d6c2;
   --color-line-strong: #7a5a42;
 
@@ -59,10 +61,114 @@
   }
 }
 
-/* A walnut ring is 1.39:1 on the evening band, so dark sections swap it for
-   gold (6.5:1). Ember fills take the walnut ring plus the 2px offset gap. */
+/* Dark surfaces (the hero plate) need the inverse ring: a walnut ring is 1.39:1
+   on evening, while gold is 6.5:1. Ember fills take the gold ring plus the 2px
+   offset gap. */
 .surface-evening {
   --focus-ring: var(--focus-ring-inverse);
   background-color: var(--color-evening);
   color: var(--color-ivory);
+}
+
+/* Stepped headline mass: a white paper block laid over the photograph, so the
+   image wraps around the type instead of meeting it at right angles. Every line
+   is a slab of the block colour whose bottom-right corner is rounded convexly
+   into the photo; at its top-right the radial gradient fills the reflex corner
+   so the photo's corner is rounded instead. The top line is closed by the same
+   fill, which rounds the photo against the plate's top edge.
+
+   The frame breaks out of the plate's padding to the top and side edges, so the
+   mass meets the card the way a letterpressed block would; --pad-x and --pad-y
+   come from .hero-plate, which owns that padding.
+
+   --cutout-fit is the longest line measured in em, including its 0.3em right
+   padding: 7.68 for "Nigerian classics," at this tracking, stored as 7.83 for
+   headroom. Sizing by the column instead of the viewport is what guarantees that
+   line can never wrap and break the staircase — the display step is a ceiling,
+   and on narrow screens the column wins. */
+.hero-plate {
+  --pad-x: 1rem;
+  --pad-y: 1rem;
+
+  padding: var(--pad-y) var(--pad-x);
+}
+
+.hero-cutout-frame {
+  --cutout-bg: var(--color-ivory);
+  --cutout-r: 12px;
+
+  /* cqi has to resolve against an ancestor: an element that is its own query
+     container cannot size its own font from it, and the units silently fall back
+     to the viewport. */
+  container-type: inline-size;
+  margin: calc(-1 * var(--pad-y)) calc(-1 * var(--pad-x)) 0;
+}
+
+.hero-cutout {
+  --cutout-fit: 7.83;
+
+  font-size: min(
+    var(--text-display),
+    calc((100cqi - 2 * var(--pad-x) - var(--cutout-r)) / var(--cutout-fit))
+  );
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  color: var(--color-walnut);
+}
+
+.cutout-slab {
+  position: relative;
+  display: block;
+  background-color: var(--cutout-bg);
+  border-bottom-right-radius: var(--cutout-r);
+}
+
+/* Every line turns a reflex corner at its top-right and the photo turns a
+   convex one; this square fills the reflex corner, so the photo's corner is
+   rounded rather than a right angle. The solid crescent sits at the square's
+   top-left, tangent to both edges. */
+.cutout-line::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 100%;
+  width: var(--cutout-r);
+  height: var(--cutout-r);
+  background-image: radial-gradient(
+    circle at 100% 100%,
+    transparent calc(var(--cutout-r) - 1px),
+    var(--cutout-bg) var(--cutout-r)
+  );
+}
+
+.cutout-line {
+  width: fit-content;
+  padding: 0.06em 0.3em 0.14em var(--pad-x);
+}
+
+/* The first line is the top step, so it carries the inset that keeps the mass
+   clear of the card's rounded corner. */
+.cutout-line:first-child {
+  padding-top: calc(var(--pad-y) + 0.5rem);
+}
+
+.cutout-line:last-child {
+  padding-bottom: 0.24em;
+}
+
+@media (min-width: 40rem) {
+  .hero-plate {
+    --pad-x: 2rem;
+    --pad-y: 2rem;
+  }
+
+  .hero-cutout-frame {
+    --cutout-r: 20px;
+  }
+}
+
+@media (min-width: 64rem) {
+  .hero-cutout-frame {
+    --cutout-r: 28px;
+  }
 }

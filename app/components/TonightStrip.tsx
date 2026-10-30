@@ -9,7 +9,7 @@ export default async function TonightStrip() {
   return (
     <section
       id="tonight"
-      className="scroll-mt-[calc(4rem+1px)] border-y border-line bg-ivory-raised md:scroll-mt-[calc(5rem+1px)]"
+      className="scroll-mt-[calc(4rem+1px)] border-y border-line bg-ivory md:scroll-mt-[calc(5rem+1px)]"
     >
       <div className="mx-auto grid max-w-6xl gap-8 px-5 py-8 sm:grid-cols-3 lg:px-8">
         <div>
