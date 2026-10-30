@@ -21,6 +21,21 @@
 
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --font-display: var(--font-playfair), Georgia, "Times New Roman", serif;
+
+  --text-display: clamp(2.5rem, 1.6rem + 4.5vw, 4.75rem);
+  --text-display--line-height: 1.05;
+  --text-display--letter-spacing: -0.015em;
+
+  --text-section: clamp(2rem, 1.4rem + 2.2vw, 3rem);
+  --text-section--line-height: 1.15;
+  --text-section--letter-spacing: -0.01em;
+
+  --text-lede: clamp(1.125rem, 1.05rem + 0.3vw, 1.25rem);
+  --text-lede--line-height: 1.6;
+
+  --text-eyebrow: 0.75rem;
+  --text-eyebrow--line-height: 1.5;
+  --text-eyebrow--letter-spacing: 0.18em;
 }
 
 :root {
