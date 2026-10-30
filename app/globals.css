@@ -1,26 +1,53 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+/* No dark mode by design. Without this, Tailwind's dark: utilities fire off
+   prefers-color-scheme and override the brand surfaces on dark-mode devices. */
+@custom-variant dark (&:where(.dark, .dark *));
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-ivory: #f6efe3;
+  --color-ivory-raised: #fcf7ee;
+  --color-walnut: #4a3122;
+  --color-walnut-soft: #7a5a42;
+  --color-ember: #b45309;
+  --color-ember-ink: #92400e;
+  --color-ember-deep: #7c2d12;
+  --color-evening: #2a1b12;
+  /* gold is decorative on ivory (2.24:1) — accent text uses ember-ink */
+  --color-gold: #c89b3c;
+  /* line is decorative only (1.25:1 on ivory); control borders use line-strong */
+  --color-line: #e4d6c2;
+  --color-line-strong: #7a5a42;
+
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-playfair), Georgia, "Times New Roman", serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+:root {
+  --focus-ring: var(--color-walnut);
+  --focus-ring-inverse: var(--color-gold);
+}
+
+@layer base {
+  html {
+    background-color: var(--color-ivory);
+    color: var(--color-walnut);
+  }
+
+  body {
+    font-family: var(--font-sans);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--focus-ring);
+    outline-offset: 2px;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* A walnut ring is 1.39:1 on the evening band, so dark sections swap it for
+   gold (6.5:1). Ember fills take the walnut ring plus the 2px offset gap. */
+.surface-evening {
+  --focus-ring: var(--focus-ring-inverse);
+  background-color: var(--color-evening);
+  color: var(--color-ivory);
 }
