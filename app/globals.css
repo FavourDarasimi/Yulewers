@@ -152,8 +152,35 @@
   padding-top: calc(var(--pad-y) + 0.5rem);
 }
 
+/* The bottom step ends in the same fillet as the tops, turned upside down: a
+   square of paper hangs below the block's left edge and the photograph's
+   corner rounds away from it, so the mass faces down into the photo instead of
+   having its bottom corner clipped. */
 .cutout-line:last-child {
   padding-bottom: 0.24em;
+}
+
+.cutout-line:last-child::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: var(--cutout-r);
+  height: var(--cutout-r);
+  background-image: radial-gradient(
+    circle at 100% 100%,
+    transparent calc(var(--cutout-r) - 1px),
+    var(--cutout-bg) var(--cutout-r)
+  );
+}
+
+/* The white mass breaks out to the plate's top-left corner and hides it
+   completely, but the rounded clip leaves the photograph and scrim each
+   contributing an antialiased sliver under the white, which reads as a faint
+   arc on the white page. Squaring that one corner removes the clipped edge;
+   the mass's own white fills the corner, and the page behind it is white. */
+.hero-plate-surface {
+  border-top-left-radius: 0;
 }
 
 @media (min-width: 40rem) {

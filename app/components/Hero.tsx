@@ -5,7 +5,7 @@ export default function Hero() {
   return (
     <section id="top" className="overflow-x-hidden">
       <div className="mx-auto max-w-7xl px-4 pt-24 pb-10 md:px-6 md:pt-28 lg:pb-14">
-        <div className="surface-evening relative isolate overflow-hidden rounded-[28px] lg:rounded-[36px]">
+        <div className="surface-evening hero-plate-surface relative isolate overflow-hidden rounded-[28px] lg:rounded-[36px]">
           <Image
             src="/hero/suya.jpg"
             alt="Suya — spiced grilled beef with sliced onion and pepper sauce"
