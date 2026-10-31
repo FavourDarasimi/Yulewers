@@ -1,26 +1,33 @@
 "use client";
 
 import { useState } from "react";
-import { useMotionValueEvent, useScroll } from "framer-motion";
+import { motion, useMotionValueEvent, useReducedMotion, useScroll } from "framer-motion";
 import { venue } from "@/lib/venue";
+
+const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
 export default function SiteHeader() {
   const [solid, setSolid] = useState(false);
+  const reduce = useReducedMotion();
   const { scrollY } = useScroll();
 
   useMotionValueEvent(scrollY, "change", (y) => setSolid(y > 24));
 
   return (
-    <header
+    <motion.header
+      initial={{ opacity: 0, y: -8 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: reduce ? 0 : 0.5, ease: EASE }}
       className={`fixed inset-x-0 top-0 z-50 border-b transition-colors motion-reduce:transition-none ${
         solid
-          ? "border-line bg-ivory/95 text-walnut backdrop-blur-sm"
-          : "border-transparent text-walnut"
+          ? "border-line bg-ivory/95 text-walnut backdrop-blur-sm [--focus-ring:var(--focus-ring)]"
+          : "border-transparent text-ivory [--focus-ring:var(--focus-ring-inverse)]"
       }`}
     >
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-5 md:h-20 lg:px-8">
         <a href="#top" className="font-display text-xl tracking-tight md:text-2xl">
           {venue.name}
+          <span className="text-gold">.</span>
         </a>
 
         <nav aria-label="Primary" className="flex items-center gap-5 md:gap-8">
@@ -44,6 +51,6 @@ export default function SiteHeader() {
           </a>
         </nav>
       </div>
-    </header>
+    </motion.header>
   );
 }

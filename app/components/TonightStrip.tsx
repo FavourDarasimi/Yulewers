@@ -1,4 +1,5 @@
 import { connection } from "next/server";
+import Reveal from "./Reveal";
 import { tonight, venue, windowText } from "@/lib/venue";
 
 export default async function TonightStrip() {
@@ -12,17 +13,17 @@ export default async function TonightStrip() {
       className="scroll-mt-[calc(4rem+1px)] border-y border-line bg-ivory md:scroll-mt-[calc(5rem+1px)]"
     >
       <div className="mx-auto grid max-w-6xl gap-8 px-5 py-8 sm:grid-cols-3 lg:px-8">
-        <div>
+        <Reveal>
           <p className="text-eyebrow font-semibold uppercase text-walnut-soft">
             Tonight, {weekday}
           </p>
           <p className="mt-2 font-medium text-walnut">{windowText(window)}</p>
-        </div>
-        <div>
+        </Reveal>
+        <Reveal delay={0.08}>
           <p className="text-eyebrow font-semibold uppercase text-walnut-soft">Dinner service</p>
           <p className="mt-2 font-medium text-walnut">From {venue.dinnerServiceFrom}</p>
-        </div>
-        <div>
+        </Reveal>
+        <Reveal delay={0.16}>
           <p className="text-eyebrow font-semibold uppercase text-walnut-soft">Reservations</p>
           <p className="mt-2 font-medium">
             <a
@@ -32,7 +33,7 @@ export default async function TonightStrip() {
               {venue.phone.display}
             </a>
           </p>
-        </div>
+        </Reveal>
       </div>
     </section>
   );
