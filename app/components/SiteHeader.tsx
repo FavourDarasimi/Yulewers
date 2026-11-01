@@ -32,6 +32,12 @@ export default function SiteHeader() {
 
         <nav aria-label="Primary" className="flex items-center gap-5 md:gap-8">
           <a
+            href="#menu"
+            className="hidden text-sm font-medium underline-offset-4 hover:underline sm:block"
+          >
+            Menu
+          </a>
+          <a
             href="#tonight"
             className="hidden text-sm font-medium underline-offset-4 hover:underline sm:block"
           >
