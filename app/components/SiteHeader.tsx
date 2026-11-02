@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { motion, useMotionValueEvent, useReducedMotion, useScroll } from "framer-motion";
 import { Cancel01Icon, Menu01Icon } from "hugeicons-react";
 import { venue } from "@/lib/venue";
+import { useReservation } from "./ReservationProvider";
 
 const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
@@ -19,6 +20,7 @@ const drawerRows = [
 export default function SiteHeader() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const { show } = useReservation();
   const toggleRef = useRef<HTMLButtonElement>(null);
   const reduce = useReducedMotion();
   const { scrollY } = useScroll();
@@ -102,12 +104,19 @@ export default function SiteHeader() {
             >
               {venue.phone.display}
             </a>
-            <a
-              href={phoneHref}
+            {/* Not <ReserveButton>: the drawer has to go down with the panel
+                coming up, or the bar underneath keeps its solid open-state. */}
+            <button
+              type="button"
+              aria-haspopup="dialog"
+              onClick={() => {
+                setOpen(false);
+                show();
+              }}
               className="rounded-full bg-ember px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-ember-deep motion-reduce:transition-none"
             >
               Reserve
-            </a>
+            </button>
 
             {/* Lives in the same nav as the inline links so exactly one set is ever
                 exposed to assistive tech. Absolute, and the nav is not positioned, so

@@ -49,6 +49,12 @@
   html {
     background-color: var(--color-ivory);
     color: var(--color-walnut);
+
+    /* The reservation panel locks page scroll with `overflow: hidden`, which
+       would hand back the 12px scrollbar and re-centre every max-width column —
+       the fixed header with it. Reserving the gutter keeps the page exactly
+       where it is while the panel is up. */
+    scrollbar-gutter: stable;
   }
 
   /* Every in-page link jumps between sections under a fixed header. Easing the

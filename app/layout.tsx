@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Playfair_Display } from "next/font/google";
 import "./globals.css";
+import ReservationProvider from "./components/ReservationProvider";
 import SiteFooter from "./components/SiteFooter";
 
 const inter = Inter({
@@ -28,8 +29,10 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${inter.variable} ${playfair.variable} h-full antialiased`}
     >
       <body className="font-sans text-walnut min-h-full flex flex-col">
-        {children}
-        <SiteFooter />
+        <ReservationProvider>
+          {children}
+          <SiteFooter />
+        </ReservationProvider>
       </body>
     </html>
   );

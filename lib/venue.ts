@@ -1,4 +1,4 @@
-const VENUE_TIME_ZONE = "Africa/Lagos";
+export const venueTimeZone = "Africa/Lagos";
 
 export type Weekday = "Mon" | "Tue" | "Wed" | "Thu" | "Fri" | "Sat" | "Sun";
 
@@ -37,7 +37,7 @@ export const hours: Record<Weekday, DayWindow> = {
 
 const weekdayLabel = new Intl.DateTimeFormat("en-GB", {
   weekday: "short",
-  timeZone: VENUE_TIME_ZONE,
+  timeZone: venueTimeZone,
 });
 
 const weekdayNames: Record<Weekday, string> = {

@@ -5,8 +5,10 @@ import {
   Chat01Icon,
   InstagramIcon,
   MapPinIcon,
+  RestaurantTableIcon,
 } from "hugeicons-react";
 import { hours, todayKey, venue, windowText } from "@/lib/venue";
+import ReserveButton from "./ReserveButton";
 
 const socialIcons = { instagram: InstagramIcon, whatsapp: Chat01Icon };
 
@@ -39,28 +41,39 @@ export default async function SiteFooter() {
               <p className="text-eyebrow font-semibold uppercase text-gold">Reservations</p>
             </div>
             <h2 className="mt-6 max-w-2xl font-display text-section text-balance text-ivory">
-              Ring ahead and we keep the <em className="italic text-gold">table warm</em>.
+              Pick a table and we keep it <em className="italic text-gold">warm</em>.
             </h2>
             <p className="mt-5 max-w-md text-lede text-ivory/70 text-pretty">
-              Six or more, call the day before. Anything smaller, there is a stool by the grill with
-              your name on it.
+              Six or more, say so the day before. Anything smaller, there is a stool by the grill
+              with your name on it.
             </p>
           </div>
 
-          <a
-            href={`tel:${venue.phone.e164}`}
-            className="group inline-flex w-fit items-center gap-3 self-start rounded-full border border-ivory/25 px-6 py-4 transition-colors hover:border-gold/70 motion-reduce:transition-none lg:self-end"
-          >
-            <Calling02Icon
-              size={20}
-              strokeWidth={1.6}
-              aria-hidden
-              className="shrink-0 text-gold transition-transform group-hover:-rotate-6 motion-reduce:transition-none"
-            />
-            <span className="font-display text-xl tabular-nums text-ivory md:text-2xl">
-              {venue.phone.display}
-            </span>
-          </a>
+          <div className="flex flex-col items-start gap-3 lg:self-end">
+            <ReserveButton className="group inline-flex w-fit items-center gap-2.5 rounded-full bg-gold px-6 py-3.5 text-base font-semibold text-evening transition-colors hover:bg-ivory motion-reduce:transition-none">
+              <RestaurantTableIcon
+                size={18}
+                strokeWidth={1.7}
+                aria-hidden
+                className="shrink-0 transition-transform group-hover:-translate-y-0.5 motion-reduce:transition-none"
+              />
+              Reserve a table
+            </ReserveButton>
+            <a
+              href={`tel:${venue.phone.e164}`}
+              className="group inline-flex w-fit items-center gap-3 self-start rounded-full border border-ivory/25 px-6 py-4 transition-colors hover:border-gold/70 motion-reduce:transition-none"
+            >
+              <Calling02Icon
+                size={20}
+                strokeWidth={1.6}
+                aria-hidden
+                className="shrink-0 text-gold transition-transform group-hover:-rotate-6 motion-reduce:transition-none"
+              />
+              <span className="font-display text-xl tabular-nums text-ivory md:text-2xl">
+                {venue.phone.display}
+              </span>
+            </a>
+          </div>
         </div>
 
         <div className="grid gap-x-10 gap-y-14 border-t border-ivory/10 py-14 md:grid-cols-2 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)_minmax(0,1.4fr)] lg:py-16">
@@ -191,7 +204,8 @@ export default async function SiteFooter() {
             </p>
           </div>
           <p className="text-xs text-ivory/60">
-            No online bookings — the phone is the door.
+            Requests reach the room by WhatsApp or phone — nothing is held until someone there says
+            yes.
           </p>
         </div>
       </div>

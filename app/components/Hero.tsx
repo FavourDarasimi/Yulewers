@@ -2,8 +2,9 @@
 
 import Image from "next/image";
 import { motion, useReducedMotion } from "framer-motion";
-import { ArrowDown01Icon, Calling02Icon } from "hugeicons-react";
+import { ArrowDown01Icon, RestaurantTableIcon } from "hugeicons-react";
 import { venue } from "@/lib/venue";
+import ReserveButton from "./ReserveButton";
 
 const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
@@ -113,18 +114,15 @@ export default function Hero() {
           transition={enter(0.56, 0.6)}
           className="mt-10 flex flex-wrap items-center gap-x-8 gap-y-5"
         >
-          <a
-            href={`tel:${venue.phone.e164}`}
-            className="group inline-flex items-center gap-2.5 rounded-full bg-ember px-6 py-3.5 text-base font-semibold text-white shadow-[0_16px_36px_-14px_rgba(180,83,9,0.65)] transition-colors hover:bg-ember-deep motion-reduce:transition-none"
-          >
-            <Calling02Icon
+          <ReserveButton className="group inline-flex items-center gap-2.5 rounded-full bg-ember px-6 py-3.5 text-base font-semibold text-white shadow-[0_16px_36px_-14px_rgba(180,83,9,0.65)] transition-colors hover:bg-ember-deep motion-reduce:transition-none">
+            <RestaurantTableIcon
               size={18}
               strokeWidth={1.7}
               aria-hidden
-              className="transition-transform group-hover:-rotate-6 motion-reduce:transition-none"
+              className="transition-transform group-hover:-translate-y-0.5 motion-reduce:transition-none"
             />
-            Reserve by phone
-          </a>
+            Reserve a table
+          </ReserveButton>
           <a
             href="#tonight"
             className="group inline-flex items-center gap-2 text-sm font-medium text-ivory/80 underline decoration-gold/40 underline-offset-[6px] transition-colors hover:text-ivory hover:decoration-gold motion-reduce:transition-none"
