@@ -27,8 +27,10 @@ const OCCASIONS = [
   "Something to celebrate",
 ];
 
+// 70% of walnut-soft is 3.2:1 on white: the line a control needs to be seen as
+// a control, without the full-strength brown that reads as a heavy frame.
 const FIELD =
-  "mt-1.5 w-full rounded-lg border border-line-strong bg-ivory px-3 py-2.5 text-base text-walnut placeholder:text-walnut-soft/60 focus:border-ember motion-reduce:transition-none";
+  "mt-1.5 w-full rounded-lg border border-walnut-soft/70 bg-ivory px-3 py-2.5 text-base text-walnut placeholder:text-walnut-soft/60 focus:border-ember motion-reduce:transition-none";
 
 const GROUP_LABEL = "text-eyebrow font-semibold uppercase text-ember-ink";
 
@@ -407,7 +409,7 @@ export default function ReservationForm({ scrollToTop }: Props) {
                 className={`rounded-full border px-3.5 py-1.5 text-sm transition-colors motion-reduce:transition-none ${
                   on
                     ? "border-ember bg-ember text-ivory"
-                    : "border-line-strong bg-ivory text-walnut hover:bg-walnut/5"
+                    : "border-walnut-soft/70 bg-ivory text-walnut hover:border-walnut-soft hover:bg-walnut/5"
                 }`}
               >
                 {allergen}

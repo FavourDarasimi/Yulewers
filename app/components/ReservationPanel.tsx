@@ -109,7 +109,7 @@ export default function ReservationPanel() {
         initial={false}
         animate={{ x: open ? "0%" : "100%" }}
         transition={enter(0.44)}
-        className="absolute inset-y-0 right-0 flex w-full max-w-[26rem] flex-col border-l border-line bg-ivory text-walnut shadow-[-30px_0_60px_-30px_rgba(42,27,18,0.6)] focus:outline-none"
+        className="absolute inset-y-0 right-0 flex w-full max-w-[30rem] flex-col border-l border-line bg-ivory text-walnut shadow-[-30px_0_60px_-30px_rgba(42,27,18,0.6)] focus:outline-none"
       >
         <div className="flex items-start justify-between gap-4 border-b border-line px-5 py-4 md:px-6">
           <div>
