@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Playfair_Display } from "next/font/google";
 import "./globals.css";
+import SiteFooter from "./components/SiteFooter";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -28,6 +29,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     >
       <body className="font-sans text-walnut min-h-full flex flex-col">
         {children}
+        <SiteFooter />
       </body>
     </html>
   );

@@ -48,7 +48,7 @@ export default function Hero() {
           background wash. */}
       <div className="absolute inset-0 hidden bg-[radial-gradient(40%_46%_at_79%_44%,rgba(200,155,60,0.18),transparent_72%)] lg:block" />
       <div className="absolute inset-0 bg-[radial-gradient(120%_100%_at_50%_42%,transparent_36%,rgba(18,10,5,0.6)_100%)]" />
-      <div aria-hidden className="hero-grain absolute inset-0" />
+      <div aria-hidden className="grain absolute inset-0" />
 
       <div className="relative mx-auto w-full max-w-7xl px-5 py-28 md:px-6 md:py-32 lg:px-8">
         <div className="flex items-center gap-4">
@@ -146,7 +146,7 @@ export default function Hero() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={enter(1, 0.6)}
-        className="absolute inset-x-0 bottom-7 mx-auto hidden w-fit flex-col items-center gap-2.5 text-[0.6rem] font-medium uppercase tracking-[0.3em] text-ivory/45 transition-colors hover:text-ivory/75 sm:flex"
+        className="absolute inset-x-0 bottom-7 mx-auto hidden w-fit flex-col items-center gap-2.5 text-[0.6rem] font-medium uppercase tracking-[0.3em] text-ivory/55 transition-colors hover:text-ivory/85 sm:flex"
       >
         Scroll
         <span className="relative block h-10 w-px overflow-hidden bg-ivory/15">

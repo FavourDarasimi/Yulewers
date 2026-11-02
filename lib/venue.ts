@@ -4,11 +4,25 @@ export type Weekday = "Mon" | "Tue" | "Wed" | "Thu" | "Fri" | "Sat" | "Sun";
 
 export type DayWindow = { open: string; close: string } | { closed: true };
 
+export type SocialLink = {
+  label: string;
+  href: string;
+  icon: "instagram" | "whatsapp";
+};
+
 export const venue = {
   name: "Yulewers",
   neighbourhood: "Lekki",
   phone: { display: "+234 800 000 0000", e164: "+2348000000000" },
   dinnerServiceFrom: "7:00pm",
+  // PLACEHOLDER. The district is confirmed; the door number is not, so the
+  // footer renders only the lines that have a value.
+  address: { street: "", area: "Lekki Phase 1", city: "Lagos" },
+  // PLACEHOLDER handles derived from the brand name. Confirm before launch.
+  socials: [
+    { label: "Instagram", href: "https://www.instagram.com/yulewers/", icon: "instagram" },
+    { label: "WhatsApp", href: "https://wa.me/2348000000000", icon: "whatsapp" },
+  ] satisfies SocialLink[],
 };
 
 export const hours: Record<Weekday, DayWindow> = {
@@ -36,11 +50,15 @@ const weekdayNames: Record<Weekday, string> = {
   Sun: "Sunday",
 };
 
+export function todayKey(now: Date = new Date()): Weekday {
+  return weekdayLabel.format(now) as Weekday;
+}
+
 export function tonight(now: Date = new Date()): {
   weekday: string;
   window: DayWindow;
 } {
-  const label = weekdayLabel.format(now) as Weekday;
+  const label = todayKey(now);
   return { weekday: weekdayNames[label], window: hours[label] };
 }
 
