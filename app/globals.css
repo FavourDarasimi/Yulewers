@@ -51,6 +51,15 @@
     color: var(--color-walnut);
   }
 
+  /* Every in-page link jumps between sections under a fixed header. Easing the
+     scroll keeps that jump legible instead of a hard cut. Left off entirely for
+     prefers-reduced-motion, where the instant jump is the point. */
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+
   body {
     font-family: var(--font-sans);
   }
