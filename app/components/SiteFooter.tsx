@@ -7,7 +7,7 @@ import {
   MapPinIcon,
   RestaurantTableIcon,
 } from "hugeicons-react";
-import { hours, todayKey, venue, windowText } from "@/lib/venue";
+import { addressLines, directionsHref, hours, todayKey, venue, windowText } from "@/lib/venue";
 import ReserveButton from "./ReserveButton";
 
 const socialIcons = { instagram: InstagramIcon, whatsapp: Chat01Icon };
@@ -18,9 +18,6 @@ export default async function SiteFooter() {
   await connection();
   const today = todayKey();
   const year = new Date().getFullYear();
-  const place = [venue.address.street, venue.address.area, venue.address.city]
-    .filter(Boolean)
-    .join(", ");
 
   return (
     <footer className="surface-evening relative isolate overflow-hidden">
@@ -82,16 +79,14 @@ export default async function SiteFooter() {
               Visit
             </h3>
             <address className="mt-5 text-sm not-italic leading-7 text-ivory/80">
-              {[venue.address.street, venue.address.area, venue.address.city]
-                .filter(Boolean)
-                .map((line) => (
-                  <span key={line} className="block">
-                    {line}
-                  </span>
-                ))}
+              {addressLines.map((line) => (
+                <span key={line} className="block">
+                  {line}
+                </span>
+              ))}
             </address>
             <a
-              href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(place)}`}
+              href={directionsHref}
               target="_blank"
               rel="noopener noreferrer"
               className="mt-4 inline-flex items-center gap-2 text-sm font-medium text-ivory underline decoration-gold/40 underline-offset-4 transition-colors hover:decoration-gold motion-reduce:transition-none"
@@ -141,6 +136,14 @@ export default async function SiteFooter() {
                   className="underline-offset-4 transition-colors hover:text-gold motion-reduce:transition-none"
                 >
                   Good to know
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#here"
+                  className="underline-offset-4 transition-colors hover:text-gold motion-reduce:transition-none"
+                >
+                  Getting here
                 </a>
               </li>
               <li>

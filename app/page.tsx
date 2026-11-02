@@ -1,4 +1,5 @@
 import About from "./components/About";
+import GettingHere from "./components/GettingHere";
 import GoodToKnow from "./components/GoodToKnow";
 import Hero from "./components/Hero";
 import Menu from "./components/Menu";
@@ -17,6 +18,7 @@ export default function Home() {
         <About />
         <PrivateHire />
         <GoodToKnow />
+        <GettingHere />
       </main>
     </>
   );

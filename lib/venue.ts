@@ -25,6 +25,19 @@ export const venue = {
   ] satisfies SocialLink[],
 };
 
+/**
+ * Only the address lines that have a value, so a missing door number degrades
+ * to a district search instead of rendering a comma-shaped hole. Both the
+ * footer and the getting-here section read this.
+ */
+export const addressLines = [venue.address.street, venue.address.area, venue.address.city].filter(
+  Boolean,
+);
+
+export const directionsHref = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+  addressLines.join(", "),
+)}`;
+
 export const hours: Record<Weekday, DayWindow> = {
   Mon: { closed: true },
   Tue: { open: "5:00pm", close: "10:00pm" },

@@ -16,6 +16,7 @@ const drawerRows = [
   { href: "#about", label: "About" },
   { href: "#hire", label: "Private hire" },
   { href: "#know", label: "Good to know" },
+  { href: "#here", label: "Getting here" },
   { href: phoneHref, label: venue.phone.display },
 ];
 
