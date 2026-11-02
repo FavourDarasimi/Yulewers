@@ -14,6 +14,7 @@ const drawerRows = [
   { href: "#menu", label: "Menu" },
   { href: "#tonight", label: "Tonight" },
   { href: "#about", label: "About" },
+  { href: "#hire", label: "Private hire" },
   { href: phoneHref, label: venue.phone.display },
 ];
 
@@ -97,6 +98,12 @@ export default function SiteHeader() {
               className="hidden text-sm font-medium underline-offset-4 hover:underline sm:block"
             >
               About
+            </a>
+            <a
+              href="#hire"
+              className="hidden text-sm font-medium underline-offset-4 hover:underline sm:block"
+            >
+              Private hire
             </a>
             <a
               href={phoneHref}

@@ -1,6 +1,7 @@
 import About from "./components/About";
 import Hero from "./components/Hero";
 import Menu from "./components/Menu";
+import PrivateHire from "./components/PrivateHire";
 import SiteHeader from "./components/SiteHeader";
 import TonightStrip from "./components/TonightStrip";
 
@@ -13,6 +14,7 @@ export default function Home() {
         <TonightStrip />
         <Menu />
         <About />
+        <PrivateHire />
       </main>
     </>
   );
