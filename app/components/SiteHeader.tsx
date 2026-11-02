@@ -8,8 +8,6 @@ import { useReservation } from "./ReservationProvider";
 
 const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
-const phoneHref = `tel:${venue.phone.e164}`;
-
 const drawerRows = [
   { href: "#menu", label: "Menu" },
   { href: "#tonight", label: "Tonight" },
@@ -17,7 +15,6 @@ const drawerRows = [
   { href: "#hire", label: "Private hire" },
   { href: "#know", label: "Good to know" },
   { href: "#here", label: "Getting here" },
-  { href: phoneHref, label: venue.phone.display },
 ];
 
 export default function SiteHeader() {
@@ -107,12 +104,6 @@ export default function SiteHeader() {
             >
               Private hire
             </a>
-            <a
-              href={phoneHref}
-              className="hidden text-sm font-medium underline-offset-4 hover:underline lg:block"
-            >
-              {venue.phone.display}
-            </a>
             {/* Not <ReserveButton>: the drawer has to go down with the panel
                 coming up, or the bar underneath keeps its solid open-state. */}
             <button
@@ -143,17 +134,14 @@ export default function SiteHeader() {
               className="absolute inset-x-0 top-full border-t border-line bg-ivory text-walnut shadow-[0_24px_44px_-28px_rgba(42,27,18,0.5)] sm:hidden"
             >
               <ul className="mx-auto max-w-6xl px-5">
-                {drawerRows.map((row, index) => (
+                {drawerRows.map((row) => (
                   <li key={row.label} className="border-b border-line/70">
                     <a
                       href={row.href}
                       onClick={() => setOpen(false)}
-                      className="flex items-baseline gap-3.5 py-4 transition-colors hover:text-ember-ink motion-reduce:transition-none"
+                      className="block py-4 text-base font-medium transition-colors hover:text-ember-ink motion-reduce:transition-none"
                     >
-                      <span aria-hidden className="font-display text-xs tabular-nums text-gold">
-                        {String(index + 1).padStart(2, "0")}
-                      </span>
-                      <span className="text-base font-medium">{row.label}</span>
+                      {row.label}
                     </a>
                   </li>
                 ))}
