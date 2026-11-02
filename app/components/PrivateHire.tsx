@@ -9,6 +9,7 @@ import { tables, totalSeats } from "@/lib/tables";
 import { venue } from "@/lib/venue";
 import Reveal from "./Reveal";
 import ReserveButton from "./ReserveButton";
+import Leader from "./Leader";
 
 // PLACEHOLDER. The three hire shapes, the per-head figure, the deposit and the
 // late grill are written to fill the section — none of it is agreed with the
@@ -60,15 +61,6 @@ const enquiryText = [
 const enquiryHref = `https://wa.me/${venue.phone.e164.replace("+", "")}?text=${encodeURIComponent(
   enquiryText,
 )}`;
-
-function Leader() {
-  return (
-    <span
-      aria-hidden
-      className="mx-3 h-px flex-1 -translate-y-[0.35em] bg-[repeating-linear-gradient(90deg,var(--color-line-strong)_0_1px,transparent_1px_5px)] opacity-40"
-    />
-  );
-}
 
 export default function PrivateHire() {
   return (

@@ -137,6 +137,14 @@ export default async function SiteFooter() {
               </li>
               <li>
                 <a
+                  href="#know"
+                  className="underline-offset-4 transition-colors hover:text-gold motion-reduce:transition-none"
+                >
+                  Good to know
+                </a>
+              </li>
+              <li>
+                <a
                   href="#top"
                   className="group inline-flex items-center gap-2 underline-offset-4 transition-colors hover:text-gold motion-reduce:transition-none"
                 >

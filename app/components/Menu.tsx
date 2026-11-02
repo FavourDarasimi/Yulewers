@@ -1,4 +1,5 @@
 import Reveal from "./Reveal";
+import Leader from "./Leader";
 import { menu, naira, orderSteps, type MenuItem } from "@/lib/menu";
 import { venue } from "@/lib/venue";
 
@@ -31,10 +32,7 @@ function Dish({ item }: { item: MenuItem }) {
             </span>
           ) : null}
         </h4>
-        <span
-          aria-hidden
-          className="mx-3 h-px flex-1 -translate-y-[0.35em] bg-[repeating-linear-gradient(90deg,var(--color-line-strong)_0_1px,transparent_1px_5px)] opacity-40"
-        />
+        <Leader />
         <span className="shrink-0 font-medium tabular-nums text-walnut-soft">
           {naira(item.price)}
         </span>
