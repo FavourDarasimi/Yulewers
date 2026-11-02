@@ -44,6 +44,12 @@ export default function SiteHeader() {
             Tonight
           </a>
           <a
+            href="#about"
+            className="hidden text-sm font-medium underline-offset-4 hover:underline sm:block"
+          >
+            About
+          </a>
+          <a
             href={`tel:${venue.phone.e164}`}
             className="hidden text-sm font-medium underline-offset-4 hover:underline lg:block"
           >

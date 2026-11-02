@@ -1,3 +1,4 @@
+import About from "./components/About";
 import Hero from "./components/Hero";
 import Menu from "./components/Menu";
 import SiteHeader from "./components/SiteHeader";
@@ -11,6 +12,7 @@ export default function Home() {
         <Hero />
         <TonightStrip />
         <Menu />
+        <About />
       </main>
     </>
   );
