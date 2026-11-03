@@ -1,7 +1,12 @@
 "use client";
 
 import { useEffect, useMemo, useState, type FormEvent } from "react";
-import { ArrowRight01Icon, Calling02Icon } from "hugeicons-react";
+import {
+  ArrowRight01Icon,
+  Calling02Icon,
+  Chat01Icon,
+  CheckmarkCircle02Icon,
+} from "hugeicons-react";
 import type { Table } from "@/lib/tables";
 import {
   bookableDates,
@@ -16,6 +21,7 @@ import {
 } from "@/lib/tables";
 import { venue } from "@/lib/venue";
 import TableMap from "./TableMap";
+import { useReservation } from "./ReservationProvider";
 
 const ALLERGENS = ["Groundnut", "Crayfish", "Fish", "Gluten", "Dairy", "Egg"];
 
@@ -43,6 +49,7 @@ type Props = {
 };
 
 export default function ReservationForm({ scrollToTop }: Props) {
+  const { hide } = useReservation();
   // Read during render, not staged in an effect: the clock is the only source,
   // and the page is rendered per request (the footer forces it), so the server
   // and the first client render agree except for a few seconds at the Lagos
@@ -59,11 +66,24 @@ export default function ReservationForm({ scrollToTop }: Props) {
   const [allergyOther, setAllergyOther] = useState("");
   const [notes, setNotes] = useState("");
   const [errors, setErrors] = useState<Partial<Record<FieldKey, string>>>({});
-  const [sent, setSent] = useState(false);
+  const [stage, setStage] = useState<"form" | "review" | "success">("form");
 
   useEffect(() => {
-    if (sent) scrollToTop();
-  }, [sent, scrollToTop]);
+    if (stage !== "form") scrollToTop();
+  }, [stage, scrollToTop]);
+
+  function resetForm() {
+    setTableId("");
+    setGuests(2);
+    setName("");
+    setPhone("");
+    setOccasion(OCCASIONS[0]);
+    setAllergies([]);
+    setAllergyOther("");
+    setNotes("");
+    setErrors({});
+    setStage("form");
+  }
 
   const dateOptions = useMemo(() => bookableDates(today, 21), [today]);
   const timeOptions = useMemo(() => slotsFor(date), [date]);
@@ -113,7 +133,7 @@ export default function ReservationForm({ scrollToTop }: Props) {
       document.getElementById(`reserve-${first}`)?.focus();
       return;
     }
-    setSent(true);
+    setStage("review");
   }
 
   const summary = table
@@ -159,7 +179,95 @@ export default function ReservationForm({ scrollToTop }: Props) {
     ...(notes.trim() ? [{ term: "Notes", value: notes.trim() }] : []),
   ];
 
-  if (sent) {
+  if (stage === "success") {
+    return (
+      <div className="px-5 py-6 md:px-6">
+        <div className="flex items-center gap-2.5">
+          <span className="flex size-7 shrink-0 items-center justify-center rounded-full bg-ember/15 text-ember-ink">
+            <CheckmarkCircle02Icon size={18} strokeWidth={2.2} aria-hidden />
+          </span>
+          <p className={GROUP_LABEL}>Request sent</p>
+        </div>
+
+        <h3 className="mt-4 font-display text-2xl text-walnut">
+          We&apos;ve got your note.
+        </h3>
+        <p className="mt-2 text-sm leading-relaxed text-walnut-soft">
+          WhatsApp opened with your table request. Send the message in the chat and we will
+          confirm your table as soon as the floor sees it.
+        </p>
+
+        <div className="mt-6 rounded-2xl border border-line bg-ivory-raised p-5 text-sm">
+          <div className="flex items-baseline justify-between gap-4 border-b border-line pb-3">
+            <div>
+              <p className="text-eyebrow font-semibold uppercase text-walnut-soft">Table request</p>
+              <p className="mt-1 font-display text-lg text-walnut">
+                Table {table?.label}{" "}
+                <span className="font-sans text-xs text-walnut-soft">({table?.where})</span>
+              </p>
+            </div>
+            <span className="rounded-full border border-line bg-ivory px-3 py-1 text-xs font-semibold tabular-nums text-ember-ink">
+              {shownGuests} {shownGuests === 1 ? "seat" : "seats"}
+            </span>
+          </div>
+
+          <div className="mt-3.5 grid grid-cols-2 gap-3 text-xs">
+            <div>
+              <span className="text-[0.6875rem] font-semibold uppercase tracking-wider text-walnut-soft">
+                When
+              </span>
+              <p className="mt-0.5 text-sm font-medium text-walnut">
+                {formatShortDate(date)}, {slot}
+              </p>
+            </div>
+            <div>
+              <span className="text-[0.6875rem] font-semibold uppercase tracking-wider text-walnut-soft">
+                For
+              </span>
+              <p className="mt-0.5 truncate text-sm font-medium text-walnut">
+                {name.trim()}
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div className="mt-5 rounded-xl border border-line/80 bg-ivory/60 px-4 py-3 text-xs leading-relaxed text-walnut-soft">
+          <p className="font-semibold text-walnut">Holding policy</p>
+          <p className="mt-1">
+            Tables are held for 20 minutes before passing to walk-ins. To adjust your timing or cancel, reply in the WhatsApp chat or ring the room.
+          </p>
+        </div>
+
+        <div className="mt-6 grid gap-3">
+          <button
+            type="button"
+            onClick={hide}
+            className="inline-flex items-center justify-center gap-2.5 rounded-full bg-ember px-5 py-3.5 text-base font-semibold text-ivory shadow-[0_16px_36px_-16px_rgba(180,83,9,0.8)] transition-colors hover:bg-ember-deep motion-reduce:transition-none"
+          >
+            Done
+          </button>
+          <a
+            href={whatsAppHref}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center justify-center gap-2 rounded-full border border-line-strong px-5 py-3.5 text-base font-semibold text-walnut transition-colors hover:bg-walnut/5 motion-reduce:transition-none"
+          >
+            <Chat01Icon size={17} strokeWidth={1.8} aria-hidden />
+            Open WhatsApp again
+          </a>
+          <button
+            type="button"
+            onClick={resetForm}
+            className="mt-1 self-center text-sm font-medium text-walnut-soft underline decoration-gold/60 underline-offset-4 transition-colors hover:text-walnut hover:decoration-gold motion-reduce:transition-none"
+          >
+            Book another table
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  if (stage === "review") {
     return (
       <div className="px-5 py-6 md:px-6">
         <p className={GROUP_LABEL}>One more step</p>
@@ -187,9 +295,12 @@ export default function ReservationForm({ scrollToTop }: Props) {
             href={whatsAppHref}
             target="_blank"
             rel="noopener noreferrer"
+            onClick={() => {
+              setStage("success");
+            }}
             className="inline-flex items-center justify-center gap-2.5 rounded-full bg-ember px-5 py-3.5 text-base font-semibold text-ivory shadow-[0_16px_36px_-16px_rgba(180,83,9,0.8)] transition-colors hover:bg-ember-deep motion-reduce:transition-none"
           >
-            Send it on WhatsApp
+            Send
             <ArrowRight01Icon size={17} strokeWidth={1.9} aria-hidden />
           </a>
           <a
@@ -201,7 +312,7 @@ export default function ReservationForm({ scrollToTop }: Props) {
           </a>
           <button
             type="button"
-            onClick={() => setSent(false)}
+            onClick={() => setStage("form")}
             className="mt-1 self-center text-sm font-medium text-walnut-soft underline decoration-gold/60 underline-offset-4 transition-colors hover:text-walnut hover:decoration-gold motion-reduce:transition-none"
           >
             Change something
